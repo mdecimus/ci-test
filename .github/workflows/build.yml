@@ -78,10 +78,9 @@ jobs:
         if: ${{ contains(matrix.host_os, 'ubuntu') }}
         run: |
           sudo apt-get update -y
-          sudo apt-key add resources/ci/llvm-snapshot.gpg.key
-          sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main"
-          sudo apt-get update -y
-          sudo apt-get -yq --no-install-suggests --no-install-recommends install clang-14 llvm-14
+          sudo wget https://apt.llvm.org/llvm.sh
+          sudo chmod +x llvm.sh
+          sudo ./llvm.sh 14
 
       - name: Install ARM64 Linux build tools
         if: ${{ matrix.target == 'aarch64-unknown-linux-gnu' }}
