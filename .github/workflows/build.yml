@@ -31,7 +31,7 @@ jobs:
           - target: aarch64-apple-darwin
             host_os: macos-latest
           #- target: aarch64-pc-windows-msvc
-          #  host_os: windows-latest
+          #  host_os: windows-2022
           - target: aarch64-unknown-linux-gnu
             host_os: ubuntu-20.04
           #- target: aarch64-unknown-linux-musl
@@ -45,7 +45,7 @@ jobs:
           #- target: armv7-unknown-linux-gnueabihf
           #  host_os: ubuntu-20.04
           - target: x86_64-pc-windows-msvc
-            host_os: windows-latest
+            host_os: windows-2022
           - target: x86_64-apple-darwin
             host_os: macos-latest
           #- target: x86_64-unknown-linux-musl
@@ -61,7 +61,7 @@ jobs:
 
       - name: Install LLVM and Clang # required for bindgen to work, see https://github.com/rust-lang/rust-bindgen/issues/1797
         uses: KyleMayes/install-llvm-action@32c4866ebb71e0949e8833eb49beeebed48532bd
-        #if: ${{ contains(matrix.host_os, 'windows') }}
+        if: ${{ contains(matrix.host_os, 'windows') }}
         with:
           version: "14.0"
           directory: ${{ runner.temp }}/llvm

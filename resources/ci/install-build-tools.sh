@@ -20,44 +20,29 @@ IFS=$'\n\t'
 target=$1
 features=${2-}
 
+sudo apt-get update -y
 function install_packages {
   sudo apt-get -yq --no-install-suggests --no-install-recommends install "$@"
 }
 
-use_clang=
 case $target in
 --target=aarch64-unknown-linux-gnu)
-  # Clang is needed for code coverage.
-  use_clang=1
   install_packages \
-    qemu-user \
     gcc-aarch64-linux-gnu \
     g++-aarch64-linux-gnu \
     libc6-dev-arm64-cross
   ;;
---target=aarch64-unknown-linux-musl|--target=armv7-unknown-linux-musleabihf|--target=arm-unknown-linux-musleabihf)
-  use_clang=1
+--target=arm-unknown-linux-gnueabihf|--target=armv7-unknown-linux-gnueabihf)
   install_packages \
-    qemu-user
-  ;;
---target=arm-unknown-linux-gnueabihf)
-  install_packages \
-    qemu-user \
     gcc-arm-linux-gnueabihf \
     g++-arm-linux-gnueabihf \
     libc6-dev-armhf-cross
-  ;;
---target=armv7-unknown-linux-gnueabihf)
-  install_packages \
-    qemu-user \
-    gcc-arm-linux-gnueabihf \
-    g++-arm-linux-gnueabihf \
-    libc6-dev-armhf-cross
-  ;;  
---target=x86_64-unknown-linux-musl)
-  use_clang=1
   ;;
 --target=*)
   ;;
 esac
 
+#sudo apt-key add resources/ci/llvm-snapshot.gpg.key
+#sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main"
+#sudo apt-get update
+#sudo apt-get -yq --no-install-suggests --no-install-recommends install  clang-14 llvm-14
