@@ -15,11 +15,10 @@ jobs:
       matrix:
         target:
           - aarch64-unknown-linux-gnu
-
-          #- aarch64-apple-darwin
-          #- x86_64-apple-darwin
-          #- x86_64-unknown-linux-gnu
-          #- x86_64-pc-windows-msvc
+          - aarch64-apple-darwin
+          - x86_64-apple-darwin
+          - x86_64-unknown-linux-gnu
+          - x86_64-pc-windows-msvc
 
           #- aarch64-pc-windows-msvc
           #- aarch64-unknown-linux-musl
@@ -32,15 +31,14 @@ jobs:
         include:
           - target: aarch64-unknown-linux-gnu
             host_os: ubuntu-20.04
-
-          #- target: aarch64-apple-darwin
-          #  host_os: macos-latest
-          #- target: x86_64-pc-windows-msvc
-          #  host_os: windows-2022
-          #- target: x86_64-apple-darwin
-          #  host_os: macos-latest
-          #- target: x86_64-unknown-linux-gnu
-          #  host_os: ubuntu-20.04
+          - target: aarch64-apple-darwin
+            host_os: macos-latest
+          - target: x86_64-pc-windows-msvc
+            host_os: windows-2022
+          - target: x86_64-apple-darwin
+            host_os: macos-latest
+          - target: x86_64-unknown-linux-gnu
+            host_os: ubuntu-20.04
 
           #- target: aarch64-pc-windows-msvc
           #  host_os: windows-2022
@@ -161,7 +159,6 @@ jobs:
       - name: Publish Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
-        # TODO: if any of the build step fails, the release should be deleted.
         with:
             files: 'stalwart-jmap*'
         env:

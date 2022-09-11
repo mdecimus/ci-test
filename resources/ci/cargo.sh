@@ -30,7 +30,7 @@ for arg in $*; do
 done
 
 # See comments in install-build-tools.sh.
-llvm_version=10
+llvm_version=14
 
 case $target in
   aarch64-unknown-linux-gnu)
