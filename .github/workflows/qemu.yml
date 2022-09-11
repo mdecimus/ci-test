@@ -39,14 +39,13 @@ jobs:
 
           install: |
             apt-get update -y
-            apt-get install -yq curl 
+            apt-get install -yq build-essential curl clang llvm lsb-release software-properties-common gnupg 
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup-init.sh
             sed -i 's#/proc/self/exe#$(which head)#g' rustup-init.sh
             sed -i 's#/proc/cpuinfo#/proc/cpuinfo 2> /dev/null || echo ''#g' rustup-init.sh
             sed -i 's#get_architecture || return 1#RETVAL=$(gcc -dumpmachine | sed "s/-/-unknown-/") #g' rustup-init.sh
             sh -x rustup-init.sh -y --default-host=$(gcc -dumpmachine | sed 's/-/-unknown-/')
             rm rustup-init.sh
-            apt-get install -yq clang llvm lsb-release software-properties-common gnupg
 
           # Produce a binary artifact and place it in the mounted volume
           run: |
