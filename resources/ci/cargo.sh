@@ -18,8 +18,6 @@ set -eux -o pipefail
 IFS=$'\n\t'
 
 rustflags_self_contained="-Clink-self-contained=yes -Clinker=rust-lld"
-qemu_aarch64="qemu-aarch64 -L /usr/aarch64-linux-gnu"
-qemu_arm="qemu-arm -L /usr/arm-linux-gnueabihf"
 
 for arg in $*; do
   case $arg in
@@ -40,37 +38,31 @@ case $target in
     export AR_aarch64_unknown_linux_gnu=llvm-ar-$llvm_version
     export CFLAGS_aarch64_unknown_linux_gnu="--sysroot=/usr/aarch64-linux-gnu"
     export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-linux-gnu-gcc
-    export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUNNER="$qemu_aarch64"
     ;;
   aarch64-unknown-linux-musl)
     export CC_aarch64_unknown_linux_musl=clang-$llvm_version
     export AR_aarch64_unknown_linux_musl=llvm-ar-$llvm_version
     export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_RUSTFLAGS="$rustflags_self_contained"
-    export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_RUNNER="$qemu_aarch64"
     ;;
   arm-unknown-linux-gnueabihf)
     export CC_arm_unknown_linux_gnueabihf=arm-linux-gnueabihf-gcc
     export AR_arm_unknown_linux_gnueabihf=arm-linux-gnueabihf-gcc-ar
     export CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-linux-gnueabihf-gcc
-    export CARGO_TARGET_ARM_UNKNOWN_LINUX_GNUEABIHF_RUNNER="$qemu_arm"
     ;;
   arm-unknown-linux-musleabihf)
     export CC_arm_unknown_linux_musleabihf=clang-$llvm_version
     export AR_arm_unknown_linux_musleabihf=llvm-ar-$llvm_version
     export CARGO_TARGET_ARM_UNKNOWN_LINUX_MUSLEABIHF_RUSTFLAGS="$rustflags_self_contained"
-    export CARGO_TARGET_ARM_UNKNOWN_LINUX_MUSLEABIHF_RUNNER="$qemu_arm"
     ;;
   armv7-unknown-linux-gnueabihf)
     export CC_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-gcc
     export AR_armv7_unknown_linux_gnueabihf=arm-linux-gnueabihf-gcc-ar
     export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_LINKER=arm-linux-gnueabihf-gcc
-    export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_GNUEABIHF_RUNNER="$qemu_arm"
     ;;    
   armv7-unknown-linux-musleabihf)
     export CC_armv7_unknown_linux_musleabihf=clang-$llvm_version
     export AR_armv7_unknown_linux_musleabihf=llvm-ar-$llvm_version
     export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_MUSLEABIHF_RUSTFLAGS="$rustflags_self_contained"
-    export CARGO_TARGET_ARMV7_UNKNOWN_LINUX_MUSLEABIHF_RUNNER="$qemu_arm"
     ;;
   x86_64-unknown-linux-musl)
     export CC_x86_64_unknown_linux_musl=clang-$llvm_version

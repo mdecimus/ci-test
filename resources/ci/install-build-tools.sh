@@ -32,6 +32,7 @@ case $target in
   install_packages \
     qemu-user \
     gcc-aarch64-linux-gnu \
+    g++-aarch64-linux-gnu \
     libc6-dev-arm64-cross
   ;;
 --target=aarch64-unknown-linux-musl|--target=armv7-unknown-linux-musleabihf|--target=arm-unknown-linux-musleabihf)
@@ -43,12 +44,14 @@ case $target in
   install_packages \
     qemu-user \
     gcc-arm-linux-gnueabihf \
+    g++-arm-linux-gnueabihf \
     libc6-dev-armhf-cross
   ;;
 --target=armv7-unknown-linux-gnueabihf)
   install_packages \
     qemu-user \
     gcc-arm-linux-gnueabihf \
+    g++-arm-linux-gnueabihf \
     libc6-dev-armhf-cross
   ;;  
 --target=x86_64-unknown-linux-musl)
