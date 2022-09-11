@@ -19,7 +19,7 @@ jobs:
           - aarch64-unknown-linux-gnu
           #- aarch64-unknown-linux-musl
           #- arm-unknown-linux-musleabihf
-          - arm-unknown-linux-gnueabihf
+          #- arm-unknown-linux-gnueabihf
           #- armv7-unknown-linux-musleabihf
           - armv7-unknown-linux-gnueabihf
           - x86_64-pc-windows-msvc
@@ -38,8 +38,8 @@ jobs:
           #  host_os: ubuntu-18.04
           #- target: arm-unknown-linux-musleabihf
           #  host_os: ubuntu-18.04
-          - target: arm-unknown-linux-gnueabihf
-            host_os: ubuntu-18.04
+          #- target: arm-unknown-linux-gnueabihf
+          #  host_os: ubuntu-18.04
           #- target: armv7-unknown-linux-musleabihf
           #  host_os: ubuntu-18.04
           - target: armv7-unknown-linux-gnueabihf
