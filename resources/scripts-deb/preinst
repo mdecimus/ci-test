@@ -1,0 +1,4 @@
+#!/bin/bash
+useradd stalwart-jmap -s /sbin/nologin -M
+mkdir -p /var/lib/stalwart-jmap
+chown stalwart-jmap:stalwart-jmap /var/lib/stalwart-jmap

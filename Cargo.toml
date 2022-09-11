@@ -1,0 +1,43 @@
+[package]
+name = "stalwart-jmap"
+description = "Stalwart JMAP Server"
+authors = [ "Stalwart Labs Ltd. <hello@stalw.art>"]
+repository = "https://github.com/stalwartlabs/jmap-server"
+homepage = "https://github.com/stalwartlabs/jmap-server"
+keywords = ["jmap", "email", "mail", "server"]
+categories = ["email"]
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+#p256 = {version = "0.11.1", features = ["ecdh"] }
+#hkdf = "0.12.3"
+#sha2 = "0.10.2"
+#rand = "0.8.5"
+#aes-gcm = "0.10.1"
+#jmap-client = { path = "/home/vagrant/code/jmap-client", default-features=false, features = ["blocking"] } 
+#chrono = { version = "0.4"}
+#serde = { version = "1.0", features = ["derive"]}
+#serde_json = "1.0"
+jmap-client = { git = "https://github.com/stalwartlabs/jmap-client", default-features=false, features = ["blocking"] } 
+rocksdb = { path = "/tmp/rust-rocksdb" }
+
+[dev-dependencies]
+cargo-deb = "1.28.2"
+
+[package.metadata.deb]
+depends = "$auto"
+section = "utility"
+license-file = ["LICENSE"]
+maintainer-scripts = "resources/scripts-deb"
+assets = [
+    ["target/release/stalwart-jmap", "usr/bin", "755"],
+    ["resources/config/stalwart-jmap.yml", "etc/", "600"],
+    ["resources/systemd/stalwart-jmap.service", "lib/systemd/system/", "644"],
+]
+conf-files = [
+    "/etc/stalwart-jmap.yml"
+]
+
+
+

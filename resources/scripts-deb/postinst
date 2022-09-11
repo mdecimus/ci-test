@@ -1,0 +1,12 @@
+#!/bin/bash
+/bin/systemctl enable stalwart-jmap
+/bin/systemctl restart stalwart-jmap
+echo
+echo "************************************************************"
+echo "***                                                      ***"
+echo "***       Stalwart JMAP successfully installed           ***"
+echo "***                                                      ***"
+echo "***    Now please configure '/etc/stalwart-jmap.yml'     ***"
+echo "***                                                      ***"
+echo "************************************************************"
+echo
