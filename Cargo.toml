@@ -20,7 +20,8 @@ edition = "2021"
 #serde = { version = "1.0", features = ["derive"]}
 #serde_json = "1.0"
 jmap-client = { git = "https://github.com/stalwartlabs/jmap-client", default-features=false, features = ["blocking"] } 
-rocksdb = { path = "/tmp/rust-rocksdb" }
+#rocksdb = { path = "/tmp/rust-rocksdb" }
+rocksdb = "0.19"
 
 [dev-dependencies]
 cargo-deb = "1.28.2"
