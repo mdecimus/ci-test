@@ -20,7 +20,7 @@ jobs:
           - x86_64-unknown-linux-gnu
           - x86_64-pc-windows-msvc
 
-          #- aarch64-pc-windows-msvc
+          - aarch64-pc-windows-msvc
           #- aarch64-unknown-linux-musl
           #- arm-unknown-linux-musleabihf
           #- arm-unknown-linux-gnueabihf
@@ -40,8 +40,8 @@ jobs:
           - target: x86_64-unknown-linux-gnu
             host_os: ubuntu-20.04
 
-          #- target: aarch64-pc-windows-msvc
-          #  host_os: windows-2022
+          - target: aarch64-pc-windows-msvc
+            host_os: windows-2022
           #- target: aarch64-unknown-linux-musl
           #  host_os: ubuntu-20.04
           #- target: arm-unknown-linux-musleabihf
@@ -97,14 +97,6 @@ jobs:
             g++-arm-linux-gnueabihf \
             libc6-dev-armhf-cross
 
-      #- name: Install Linux build tools
-      #  if: ${{ !contains(matrix.host_os, 'windows') }}
-      #  run: resources/ci/install-build-tools.sh --target=${{ matrix.target }}
-
-      #- name: Install Windows build tools
-      #  if: ${{ contains(matrix.host_os, 'windows') }}
-      #  run: ./resources/ci/install-build-tools.ps1
-
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -112,7 +104,7 @@ jobs:
           target: ${{ matrix.target }}
           toolchain: stable
           
-      - name: Rust cache
+      - name: Rust Cache
         uses: Swatinem/rust-cache@v2
         with:
           key: ${{ matrix.host_os }}-${{ matrix.target }}-cli          
@@ -125,10 +117,10 @@ jobs:
           
       - name: ARM64 Windows setup
         if: ${{ matrix.target == 'aarch64-pc-windows-msvc' }}
+        shell: bash
         run: |
           echo "C:\Program Files (x86)\Microsoft Visual Studio\2022\Enterprise\VC\Tools\Llvm\x64\bin" >> $GITHUB_PATH
           echo "RUSTFLAGS=-C target-feature=+crt-static" >> $GITHUB_ENV
-        shell: bash
 
       - name: Building binary (Linux)
         if: ${{ !contains(matrix.host_os, 'windows') }}
@@ -137,6 +129,7 @@ jobs:
           
       - name: Building binary (Windows)
         if: ${{ contains(matrix.host_os, 'windows') }}
+        shell: bash
         run: |
           cargo build --target=${{ matrix.target }} --release
 
