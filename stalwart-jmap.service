@@ -1,0 +1,22 @@
+[Unit]
+Description=Stalwart JMAP
+ConditionPathExists=/usr/bin/stalwart-jmap
+After=network-online.target
+ 
+[Service]
+Type=simple
+User=stalwart-jmap
+Group=stalwart-jmap
+LimitNOFILE=65536
+KillMode=process
+KillSignal=SIGINT
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/stalwart-jmap --config=/etc/stalwart-jmap/config.yml
+PermissionsStartOnly=true
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=stalwart-jmap
+ 
+[Install]
+WantedBy=multi-user.target
