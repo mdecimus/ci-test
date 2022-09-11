@@ -15,25 +15,33 @@ jobs:
       matrix:
         target:
           - aarch64-apple-darwin
-          #- aarch64-pc-windows-msvc
           - aarch64-unknown-linux-gnu
+          - x86_64-apple-darwin
+          - x86_64-unknown-linux-gnu
+          - x86_64-pc-windows-msvc
+          #- aarch64-pc-windows-msvc
           #- aarch64-unknown-linux-musl
           #- arm-unknown-linux-musleabihf
           #- arm-unknown-linux-gnueabihf
           #- armv7-unknown-linux-musleabihf
           #- armv7-unknown-linux-gnueabihf
-          #- x86_64-pc-windows-msvc
-          - x86_64-apple-darwin
           #- x86_64-unknown-linux-musl
-          - x86_64-unknown-linux-gnu
 
         include:
-          - target: aarch64-apple-darwin
-            host_os: macos-latest
-          #- target: aarch64-pc-windows-msvc
-          #  host_os: windows-2022
           - target: aarch64-unknown-linux-gnu
             host_os: ubuntu-20.04
+
+          #- target: aarch64-apple-darwin
+          #  host_os: macos-latest
+          #- target: x86_64-pc-windows-msvc
+          #  host_os: windows-2022
+          #- target: x86_64-apple-darwin
+          #  host_os: macos-latest
+          #- target: x86_64-unknown-linux-gnu
+          #  host_os: ubuntu-20.04
+
+          #- target: aarch64-pc-windows-msvc
+          #  host_os: windows-2022
           #- target: aarch64-unknown-linux-musl
           #  host_os: ubuntu-20.04
           #- target: arm-unknown-linux-musleabihf
@@ -44,14 +52,8 @@ jobs:
           #  host_os: ubuntu-20.04
           #- target: armv7-unknown-linux-gnueabihf
           #  host_os: ubuntu-20.04
-          - target: x86_64-pc-windows-msvc
-            host_os: windows-2022
-          - target: x86_64-apple-darwin
-            host_os: macos-latest
           #- target: x86_64-unknown-linux-musl
           #  host_os: ubuntu-20.04
-          - target: x86_64-unknown-linux-gnu
-            host_os: ubuntu-20.04
 
     steps:
       - name: Checkout
@@ -74,7 +76,10 @@ jobs:
         if: ${{ contains(matrix.host_os, 'ubuntu') }}
         run: |
           sudo apt-get update -y
-          sudo apt-get -yq --no-install-suggests --no-install-recommends install clang-12 llvm-12
+          sudo apt-key add resources/ci/llvm-snapshot.gpg.key
+          sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-14 main"
+          sudo apt-get update -y
+          sudo apt-get -yq --no-install-suggests --no-install-recommends install clang-14 llvm-14
 
       - name: Install ARM64 Linux build tools
         if: ${{ matrix.target == 'aarch64-unknown-linux-gnu' }}
