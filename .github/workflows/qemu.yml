@@ -3,7 +3,7 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   build_job:
     runs-on: ubuntu-18.04
-    name: Build on ${{ matrix.distro }} ${{ matrix.arch }}
+    name: Build for ${{ matrix.arch }} (${{ matrix.arch }} host)
 
     strategy:
       matrix:
@@ -38,11 +38,11 @@ jobs:
           shell: /bin/bash
 
           install: |
-            sudo apt-get update -y
-            sudo wget https://apt.llvm.org/llvm.sh
-            sudo chmod +x llvm.sh
-            sudo ./llvm.sh 14 all
-            sudo apt-get install curl -yq
+            apt-get update -y
+            wget https://apt.llvm.org/llvm.sh
+            chmod +x llvm.sh
+            ./llvm.sh 14 all
+            apt-get install curl -yq
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
           # Produce a binary artifact and place it in the mounted volume
