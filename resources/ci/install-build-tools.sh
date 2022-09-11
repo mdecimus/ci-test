@@ -58,10 +58,3 @@ case $target in
   ;;
 esac
 
-# https://github.com/rustls/rustls/pull/1009 upgraded Rust's LLVM version to
-# 14
-llvm_version=14
-sudo apt-key add resources/ci/llvm-snapshot.gpg.key
-sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-$llvm_version main"
-sudo apt-get update
-install_packages clang-$llvm_version llvm-$llvm_version
