@@ -42,7 +42,7 @@ jobs:
             wget https://apt.llvm.org/llvm.sh
             chmod +x llvm.sh
             ./llvm.sh 14 all
-            apt-get install curl -yq
+            apt-get install -yq curl wget 
             curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
           # Produce a binary artifact and place it in the mounted volume
