@@ -32,7 +32,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: stalwartlabs/test:latest
-          cache-from: type=registry,ref=stalwartlabs/test:latest:buildcache
-          cache-to: type=registry,ref=stalwartlabs/test:latest:buildcache,mode=max
+          cache-from: type=registry,ref=stalwartlabs/test:buildcache
+          cache-to: type=registry,ref=stalwartlabs/test:buildcache,mode=max
           #cache-from: type=gha
           #cache-to: type=gha,mode=max
